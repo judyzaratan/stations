@@ -13,8 +13,16 @@
 
 })();
 
+
+
+
 function displayMarkers(stations) {
-  console.log(stations);
+
+  //filter for on active stations
+  stations = stations.filter(function(station) {
+    return station.status === 'active' && station.street_address;
+  });
+
   let markers = L.markerClusterGroup();
 
   let mapMarkers = stations.map(function(station) {
@@ -24,19 +32,24 @@ function displayMarkers(stations) {
     let state = station.state;
     let zip = station.zip_code;
     let status = station.status;
+    let long = station.location.coordinates[0];
+    let lat = station.location.coordinates[1];
 
 
     let content = `<h3>${name}</h3>
     <p>${street_address}</p>
     <p><span>${city}</span>, <span>${state}</span> <span>${zip}</span></p>
-    <p>Status: ${status}</p>`;
+    <p>Status: ${status}</p>
+    <p>Lat:${lat} Long:${long}`;
 
     let marker = L.marker([station.location.coordinates[1], station.location.coordinates[0]]);
     marker.bindPopup(content);
-    markers.addLayer(marker);
+    // markers.addLayer(marker);
 
     return marker;
   });
+  let markerGroup = L.layerGroup(mapMarkers);
+  markers.addLayer(markerGroup);
   mymap.addLayer(markers);
   // L.featureGroup(mapMarkers).addTo(mymap);
 }
