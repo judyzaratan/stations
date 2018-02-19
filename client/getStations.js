@@ -15,6 +15,8 @@
 
 function displayMarkers(stations) {
   console.log(stations);
+  let markers = L.markerClusterGroup();
+
   let mapMarkers = stations.map(function(station) {
     let name = station.name;
     let street_address = station.street_address;
@@ -31,10 +33,12 @@ function displayMarkers(stations) {
 
     let marker = L.marker([station.location.coordinates[1], station.location.coordinates[0]]);
     marker.bindPopup(content);
+    markers.addLayer(marker);
 
     return marker;
   });
-  L.featureGroup(mapMarkers).addTo(mymap);
+  mymap.addLayer(markers);
+  // L.featureGroup(mapMarkers).addTo(mymap);
 }
 
 function status(response) {
