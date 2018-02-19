@@ -21,4 +21,6 @@ NodeJS
 
 Resources
 LeafletJS
+Clustering https://github.com/Leaflet/Leaflet.markercluster
+
 Volta API
