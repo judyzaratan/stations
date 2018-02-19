@@ -8,16 +8,34 @@
   fetch(url, {mode: 'cors'})
     .then(status)
     .then(json)
-    .then(function(stations) {
-      console.log(stations);
-      let mapMarkers = stations.map(function(station) {
-        return L.marker([station.location.coordinates[1], station.location.coordinates[0]]);
-      });
-      L.featureGroup(mapMarkers).addTo(mymap);
-    }).catch((err) => console.log(err));
+    .then(displayMarkers)
+    .catch((err) => console.log(err));
 
 })();
 
+function displayMarkers(stations) {
+  console.log(stations);
+  let mapMarkers = stations.map(function(station) {
+    let name = station.name;
+    let street_address = station.street_address;
+    let city = station.city;
+    let state = station.state;
+    let zip = station.zip_code;
+    let status = station.status;
+
+
+    let content = `<h3>${name}</h3>
+    <p>${street_address}</p>
+    <p><span>${city}</span>, <span>${state}</span> <span>${zip}</span></p>
+    <p>Status: ${status}</p>`;
+
+    let marker = L.marker([station.location.coordinates[1], station.location.coordinates[0]]);
+    marker.bindPopup(content);
+
+    return marker;
+  });
+  L.featureGroup(mapMarkers).addTo(mymap);
+}
 
 function status(response) {
   if (response.status >= 200 && response.status < 300) {
