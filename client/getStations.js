@@ -5,20 +5,33 @@
 
   const url = 'https://api.voltaapi.com/v1/stations';
 
-  fetch(url).then((response) =>
-    console.log(response.json())
-  ).catch((err) => console.log(err));
+  fetch(url, {mode: 'cors'})
+    .then(status)
+    .then(json)
+    .then(function(stations) {
+      console.log(stations);
+      let mapMarkers = stations.map(function(station) {
+        return L.marker([station.location.coordinates[1], station.location.coordinates[0]]);
+      });
+      L.featureGroup(mapMarkers).addTo(mymap);
+    }).catch((err) => console.log(err));
 
-  console.log('test');
 })();
 
-function displayStations(stations) {
-  
 
-
+function status(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return Promise.resolve(response)
+  } else {
+    return Promise.reject(new Error(response.statusText))
+  }
 }
 
-var mymap = L.map('map').setView([37.77, -122.43], 4);
+function json(response) {
+  return response.json()
+}
+
+let mymap = L.map('map').setView([37.77, -122.43], 4);
 
 
 
