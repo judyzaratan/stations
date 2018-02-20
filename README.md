@@ -1,26 +1,25 @@
 # Volta Charging Stations
-___
 
-A map showing Volta charging stations and it includes information pop up.  
+A map showing active [Volta](https://www.voltacharging.com) charging stations in the United States
 
-## Instructions
+## Setup
 
-To run in local environment:
-Clone repository and run following commands in Terminal:
+To run locally, type following commands in terminal:
+
 ```
+  git clone https://github.com/judyzaratan/stations.git
   npm install
   npm start
+
 ```
-Visit http://localhost:3000
+
+* To view project locally, visit http://localhost:3000 on browser.
+* To view project live, view [here](https://judyzaratan.github.io/stations/).
 
 
-## Dependencies
-Development
-NodeJS
+## Resources
 
-
-Resources
-LeafletJS
-Clustering https://github.com/Leaflet/Leaflet.markercluster
-
-Volta API
+* [Volta API](http://docs.voltaapi.com/api/#get--stations)
+* [LeafletJS](http://leafletjs.com/)
+* [Leaflet Clustering](https://github.com/Leaflet/Leaflet.markercluster)
+* [Mapbox Tiles API](https://www.mapbox.com/api-documentation/?language=JavaScript#maps)
